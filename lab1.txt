@@ -1,0 +1,32 @@
+#!/bin/bash
+
+cd ~/lab1/11510407
+touch file.info
+chmod a+x file.info
+dirNum=0
+fileNum=0
+
+
+function file_list(){    
+
+    echo "[$1]" >> ~/lab1/11510407/file.info
+
+    for file in `ls $1`
+    do
+      if [ -d $1"/"$file ]
+      then
+          echo $1"/"$file >> ~/lab1/11510407/file.info
+          file_list $1"/"$file
+          dirNum=`expr $dirNum + 1`
+      else
+          echo $1"/"$file >> ~/lab1/11510407/file.info
+          fileNum=`expr $fileNum + 1`
+      fi
+    done
+}
+
+
+file_list $HOME
+
+echo "[Directories Count] : $dirNum" >> ~/lab1/11510407/file.info
+echo "[File Count] : $fileNum" >> ~/lab1/11510407/file.info
